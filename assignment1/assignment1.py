@@ -84,7 +84,7 @@ print(grade(100, 95))              # Output: A
 print(grade(65,70, 62))            # Output: C
 print(grade ("nosense", 80, 85))   # Output: invalid data was provided
 
-# 6 Range and Loop repetitions
+# 6 Range and Loop repetitionsl
 
 def repeat_string(string, count):
     repeated_string = ""
@@ -96,17 +96,107 @@ repetitions = 3 #Times repeteaded
 result = repeat_string(my_string, repetitions)
 print(result)
 
-#7 
-
-def student_scores(position, **kwargs):
-        if not kwargs:
-            return "No scores provided."
-
-        if position == "best":
-            return max(kwargs.values())
-        elif position == "mean":
-            return sum(kwargs.values()) / len(kwargs)
+#7
+def student_scores(option, **scores):
+        if option == "best":
+            # Find the student with the highest score
+            best_student = max(scores, key=scores.get)
+            return best_student
+        elif option == "mean":
+            # Calculate the average score
+            if scores:
+                average_score = sum(scores.values()) / len(scores)
+                return average_score
+            else:
+                return 0  # Return 0 
         else:
-            return "Invalid position argument. Use 'best' or 'mean'."
+            return "Invalid option. Use 'best' or 'mean'."
 
-print(result)
+    # Example 
+print(student_scores("best", Alice=90, Bob=75, Charlie=85)) 
+print(student_scores("mean", Alice=90, Bob=75, Charlie=85))  
+
+
+#8
+
+                    
+def titleize(input_string):
+    # Define the list of exception words that should not be capitalized
+    exceptions = {"a", "on", "an", "the", "of", "and", "is", "in"}
+
+    # Split the input string into a list of words
+    words = input_string.split()
+
+    # Loop through the words with their index using enumerate
+    for index, word in enumerate(words):
+        if index == 0 or index == len(words) - 1:  # Always capitalize the first and last words
+            words[index] = word.capitalize()
+        elif word in exceptions:  # Lowercase the exceptions in the middle
+            words[index] = word.lower()
+        else:  # Capitalize all other words
+            words[index] = word.capitalize()
+
+    # Join the words back into a single string
+    return " ".join(words)
+
+# Example usage
+text = "a quick brown fox jumps over the lazy dog in the park"  # Define 'text'  here
+print(titleize(text))
+
+#9
+
+def hang_man(secret, guess):
+    # Create a list to store the result
+    result = []
+
+    # Loop through each letter in the secret word
+    for letter in secret:
+        if letter in guess:  # If the letter is in the guess string
+            result.append(letter)  # Keep the letter
+        else:
+            result.append("_")  # Replace with an underscore
+
+    # Join the result list into a string and return it
+    return "".join(result)
+
+# Example usage
+secret_word = "alphabet"
+guess_letters = "ab"
+print(hang_man(secret_word, guess_letters))
+
+#10
+
+def pig_latin(sentence):
+    # Split the  sentence into words
+    words = sentence.split()
+    pig_latin_words = []
+
+    for word in words:
+        # Rule 1: Starts with a vowel
+        if word[0] in 'aeiou':
+            pig_latin_word = word + 'ay'
+        # Rule 3: Starts with 'qu'
+        elif word[:2] == 'qu':
+            pig_latin_word = word[2:] + 'quay'
+        # Rule 2: Starts with consonants
+        else:
+            # Find the first vowel in the word
+            for i, letter in enumerate(word):
+                if letter in 'aeiou':
+                    break
+            pig_latin_word = word[i:] + word[:i] + 'ay'
+        
+        pig_latin_words.append(pig_latin_word)
+
+    # Join the words into a sentence
+    return ' '.join(pig_latin_words)
+
+# Test 
+english_sentence = "the quick brown fox jumps over the lazy dog"
+pig_latin_sentence = pig_latin(english_sentence)
+print(pig_latin_sentence)
+
+
+
+                        
+
