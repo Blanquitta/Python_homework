@@ -25,32 +25,38 @@ def read_employees():
             
             # Add the row
             data["rows"] = rows
+            return data
             
+    
+
     except Exception as e:
-        # Handle exceptions gracefully
-        print("An error occurred while reading the file:")
-        print(e)
+        trace_back = traceback.extract_tb(e.__traceback__)
+        stack_trace = list()
+        for trace in trace_back:
+            stack_trace.append(f'File : {trace[0]} , Line : {trace[1]}, Func.Name : {trace[2]}, Message : {trace[3]}')
+            print(f"Exception type: {type(e).__name__}")
+            message = str(e)
+            if message:
+                print(f"Exception message: {message}")
+            print(f"Stack trace: {stack_trace}")
+        
+    
     
     # Return the dictionary
-    return data
+    
 
 # Call the function and store the result in a global variable
 employees = read_employees()
 print(employees)
 
-#3
-# def column_index(heading):
-#    return employees["fields"].index(heading)
-# #column_index('employee_id')
-# #employees["fields"].index("first_name")
-# employee_id_column = column_index("employee_id")
-# print(employee_id_column)
+# #3
+
 def column_index(heading):
     return employees['fields'].index(heading)
 employee_id_column = column_index('employee_id')
 print('Task2:\n', f'Employee_id_column: {employee_id_column}')
 
-#4
+# #4
 
 def first_name(row_number):
     #  employee dataset
@@ -61,61 +67,61 @@ def first_name(row_number):
     return employees["rows"][row_number][first_name_col_index]
     # Retrieve the value 
    
-# Example usage
-# print(first_name(1))  # Output: Bob
 
-# #5 
-    def employee_find(employee_id):
-     if     employee_match(filter(employee_id)):
+print(first_name(1)) 
+
+ #5 
+def employee_find(employee_id):
+     
+    
+    def employee_match(row):
         return int(row[employee_id_column]) == employee_id
 
-        matches=list(filter(employee_match, employees["rows"]))
-        print(employee_id_find)
-
-#         #6 
+    matches=list(filter(employee_match, employees["rows"]))
+    return(matches)
+# print(employee_match) 
+   
         
-        def employee_find_2(employee_id):
-            matches = list(filter(lambda row : int(row[employee_id_column]) == employee_id , employees["rows"]))
-    return matches
 
-    matches = list(filter (lambda row: row ["Id"]  in employee_list_2, employee_list_1))
-    print(matches)
+      #6 
+    
+def employee_find_2(employee_id):
+        matches = list(filter(lambda row : int(row[employee_id_column]) == employee_id , employees["rows"]))
+        return matches
 
-# #7 
+
+
+# # # #7 
 def sort_by_last_name():
-    # Assuming employees is a list of rows (dictionaries)
-  employees = [
-    #["John", "Doe", 30],
-    #["Jane", "Smith", 25],
-    #["Emily", "Brown", 40]
-]
+
 
 # Define the index for the last name in the row
-last_name_index = 1
+# 
+# # Sort the list of rows in place 
+    employees['rows'].sort(key=lambda row: row[column_index('last_name')])
+    return employees['rows']
 
-# Sort the list of rows in place using the sort method
-employees.sort(key=lambda row: row[last_name_index])
-
-for employee in employees:
-    print(employee)
 
 # Call the function
-sort_by_last_name()
+sort_by_last_name() 
 
- # #8
+
+#  # #8
 
  
 
-employees = [
 
-]
 
-# Function to create an employee dictionary excluding 'employee_id'
+# #  create an employee dictionary excluding 'employee_id'
 def employee_dict(row):
-    # Exclude 'employee_id' from the dictionary
-    employee_data = {key: value for key, value in row.items() if key != "employee_id"}
+#     # Exclude 'employee_id' from the dictionary
+ employee_data = employees['fields']
+ return dict(zip(employee_data[1:],row[1:]))
 
-    return employee_data
+print(employee_dict(employees['rows'][0]))
+
+
+     
 #  #9
  
 
