@@ -1,0 +1,1 @@
+C:/Users/lilia/python_homework/.venv/Scripts/python.exe c:/Users/lilia/python_homework/assignment2/dairy.py
