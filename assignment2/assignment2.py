@@ -176,13 +176,14 @@ def read_minutes():
         minutes1["fields"] = next(reader1)  # First row is the header (fields)
         minutes1["rows"] = [tuple(row) for row in reader1]  # Convert each row to a tuple
 
-with open("../cvsminutess2.cvs", mode="r") as file2:
+    with open("../cvsminutess2.cvs", mode="r") as file2:
         reader2 = csv.reader(file2)
         minutes2["fields"] = next(reader2)  # First row is the header (fields)
         minutes2["rows"] = [tuple(row) for row in reader2]  # Convert each row to a tuple
+        return  read_minutes
 
     # Return both dictionaries
-        print(read_minutes)
+    print(read_minutes)
 
 # Call the function and print the result
 minutes1, minutes2 = read_minutes()
@@ -255,15 +256,13 @@ def write_sort_list():
 import csv
 from datetime import datetime
 
-def write_sort_list():
-    # Example fields from minutes1
-    fields = ["Name", "Date"]
+
 
     # Example list to be sorted
-    minutes_list = [
-        ("Alice", datetime(2025, 3, 25)),
-        ("Bob", datetime(2025, 4, 1))
-    ]
+minutes_list = [
+    ("Alice", datetime(2025, 3, 25)),
+    ("Bob", datetime(2025, 4, 1))
+]
 write_sort_list()
 
 print("Sorted list has been written to './minutes.csv'")
