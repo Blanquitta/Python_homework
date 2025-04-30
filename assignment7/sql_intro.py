@@ -8,7 +8,7 @@ with  sqlite3.connect("../db/school.db") as conn:  # Create the file here, so th
 
     
     cursor.execute("""
-    CREATE TABLE publishers (
+    CREATE TABLE Publisher(
         id INTEGER PRIMARY KEY AUTOINCREMENT,
             name TEXT UNIQUE NOT NULL
     )
@@ -69,12 +69,12 @@ with  sqlite3.connect("../db/school.db") as conn:  # Create the file here, so th
           print(f"There was no magazine named {magazine}.")
 
     
-    cursor.execute("INSERT INTO Students (name, age, major) VALUES ('Alice', 20, 'Computer Science')")
-    cursor.execute("INSERT INTO Students (name, age, major) VALUES ('Bob', 22, 'History')") 
-    cursor.execute("INSERT INTO Students (name, age, major) VALUES ('Charlie', 19, 'Biology')") 
-    cursor.execute("INSERT INTO Courses (course_name, instructor_name) VALUES ('Math 101', 'Dr. Smith')")
-    cursor.execute("INSERT INTO Courses (course_name, instructor_name) VALUES ('English 101', 'Ms. Jones')") 
-    cursor.execute("INSERT INTO Courses (course_name, instructor_name) VALUES ('Chemistry 101', 'Dr. Lee')") 
+   
+
+    cursor.execute("INSERT INTO publisher (name) VALUES (' Peter')")
+    cursor.execute("INSERT INTO magazines (name, publisher_id) VALUES ('Andrew', 1)")
+    cursor.execute("INSERT INTO subscribers (name, address) VALUES ('Albert', '120 Tarbor Circle' )")
+
 
     conn.commit() 
     cursor.execute("SELECT name FROM sqlite_master WHERE type.'table'")
