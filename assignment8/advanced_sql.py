@@ -1,5 +1,5 @@
 
-    # 2 Connect to the database
+    # 1 Connect to the database
 import sqlite3
 conn = sqlite3.connect("../db/lesson.db") 
 cursor = conn.cursor()
@@ -36,6 +36,48 @@ conn.close()
 
 if __name__ == "__main__":
     main()
+
+    #2
+def average_order_price_per_customer():
+    conn = sqlite3.connect("../db/lesson.db")  
+    cursor = conn.cursor()
+
+query = """
+    SELECT 
+        customers.name AS customer_name,
+        AVG(order_totals.total_price) AS average_total_price
+    FROM 
+        customers
+    LEFT JOIN (
+    SELECT 
+        orders.customer_id AS customer_id_b,
+        SUM(products.price * line_items.quantity) AS total_price
+    FROM 
+        orders
+    JOIN 
+        line_items ON orders.id = line_items.order_id
+    JOIN 
+        products ON line_items.product_id = products.id
+    GROUP BY 
+        orders.id
+) AS order_totals ON customers.id = order_totals.customer_id_b
+GROUP BY 
+    customers.id;
+"""
+cursor.execute(query)
+results = cursor.fetchall()
+
+print("Average order price per customer:")
+for row in results:
+        customer = row[0]
+        avg_price = row[1] if row[1] is not None else 0.0
+        print(f"Customer: {customer}, Average Order Price: ${avg_price:.2f}")
+        print("advanced_sql.py"())
+
+conn.close()
+
+if __name__ == "__main__":
+            main()
 
 #3
 def main():
@@ -95,6 +137,7 @@ try:
 
 except Exception as e:
         print("Transaction failed:", e)
+        print("advanced_sql-py"())
         conn.rollback()
 
 finally:
@@ -120,7 +163,7 @@ def find_busy_employees():
         orders ON employees.id = orders.employee_id
     GROUP BY 
         employees.id
-    HAVING 
+    HAVING git 
         COUNT(orders.id) > 5;
     """
 
