@@ -20,9 +20,9 @@ with  sqlite3.connect("../db/school.db") as conn:  # Create the file here, so th
         id INTEGER PRIMARY KEY AUTOINCREMENT,
         name TEXT UNIQUE NOT NULL,
         publisher_id INTEGER NOT NULL,
-        FOREIGN KEY (publisher_id) REFERENCES publishers(id)
-    )
-      """ ),
+#         FOREIGN KEY (publisher_id) REFERENCES publishers(id)
+#     )
+#       """ ),
     # Creating subscribers table
     cursor.execute("""
         CREATE TABLE subscribers (
@@ -77,7 +77,7 @@ with  sqlite3.connect("../db/school.db") as conn:  # Create the file here, so th
 
 
     conn.commit() 
-    cursor.execute("SELECT name FROM sqlite_master WHERE type.'table'")
+    cursor.execute("SELECT name FROM magazines WHERE type.'table'")
     tables = cursor.fetchall()
     print("tables in database:")
     for table in tables:
