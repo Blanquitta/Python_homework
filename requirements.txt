@@ -3,4 +3,12 @@ pandas==2.2.3
 sqlalchemy==2.0.36
 jupyter_client==8.6.3
 jupyter_core==5.7.2
-nbstripout==0.8.1
+nbstripout==0.8.1Collecting pyreadline3
+  Downloading pyreadline3-3.5.4-py3-none-any.whl.metadata (4.7 kB)
+Collecting echo
+  Downloading echo-0.9.0-py3-none-any.whl.metadata (2.6 kB)
+Requirement already satisfied: numpy in c:\users\lilia\python_homework\.venv\lib\site-packages (from echo) (2.2.4)
+Downloading pyreadline3-3.5.4-py3-none-any.whl (83 kB)
+Downloading echo-0.9.0-py3-none-any.whl (30 kB)
+Installing collected packages: pyreadline3, echo
+Successfully installed echo-0.9.0 pyreadline3-3.5.4
