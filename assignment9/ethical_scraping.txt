@@ -1,0 +1,19 @@
+#4
+Which sections of the website are restricted for crawling?
+1-The sections are restricted for crawling ,are wiki/wikipedia. 
+2- Robots are to know to be issue, specially those to  get copy
+3- Please respect and  obey robots.txt.
+
+Are there specific rules for certain user agents? 
+
+Yes there are specific rules as example 
+ 1- If person is  irresponsible, the  access to the site may be blocked.
+ 2- Not dynamically-generated pages are allowed.
+ 3- "There is a special exception for API mobileview to allow dynamic
+mobile web & app views to load section content".
+
+#5
+Reflect on why websites use robots.txt and write 2-3 sentences explaining its purpose and how it promotes ethical scraping.
+
+1- The purpose is not to get personal information because are restricted to request that information
+2- Rules are put to obey, been ethical is  respectfull
