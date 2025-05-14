@@ -1,0 +1,11 @@
+
+json_path = os.path.join(output_folder, "get_books.json")
+with open(json_path, "w", encoding="utf-8") as f:
+    json.dump(results, f, indent=2, ensure_ascii=False)
+
+# Print confirmation
+print(f"Saved CSV to: {csv_path}")
+print(f"Saved JSON to: {json_path}")
+
+# Close the driver
+driver.quit()
