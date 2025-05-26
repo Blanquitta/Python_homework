@@ -1,0 +1,9 @@
+df = pd.DataFrame(results)
+
+#4
+output_folder = "assignment9"
+os.makedirs(output_folder, exist_ok=True)
+
+# Save to CSV
+csv_path = os.path.join(output_folder, "get_books.csv")
+df.to_csv(csv_path, index=False)

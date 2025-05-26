@@ -1,0 +1,1 @@
+The challenges to do this assignmet was only to scrape the information, and copy url and follow the direccion were given 
