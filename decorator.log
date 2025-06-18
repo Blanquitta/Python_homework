@@ -1,0 +1,30 @@
+function: greet
+positional parameters: none
+keyword parameters: none
+return: None
+
+function: accept_args
+positional parameters: [1, 2, 3, 'test']
+keyword parameters: none
+return: True
+
+function: keyword_only
+positional parameters: none
+keyword parameters: {'name': 'Alice', 'age': 30}
+return: <function logger_decorator at 0x000001F3EC7D3CE0>
+
+function: greet
+positional parameters: none
+keyword parameters: none
+return: None
+
+function: accept_args
+positional parameters: [1, 2, 3, 'test']
+keyword parameters: none
+return: True
+
+function: keyword_only
+positional parameters: none
+keyword parameters: {'name': 'Alice', 'age': 30}
+return: <function logger_decorator at 0x0000025911523CE0>
+
