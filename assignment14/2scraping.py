@@ -22,18 +22,53 @@ DATA_DIR = 'csv_files'
 
 import sqlite3
 
-with sqlite3.connect( "../mlb_history.db") as conn:
- cursor = conn.cursor()
-
-
-
-cursor.execute("SELECT name FROM sqlite_master WHERE type='table';")
-print(cursor.fetchall())  
+csv_file =( "../mlb_history.db")
 
 with sqlite3.connect( "../mlb_history.db") as conn:
- cursor = conn.cursor()
+ 
 
-driver.get("https://www.baseball-almanac.com/players/player.php?p=rodrial01")
+    cursor = conn.cursor()
+
+    cursor.execute("DROP TABLE IF EXISTS mlb_history_avg.db")
+    conn.execute("PRAGMA foreign_keys = 1")
+
+try:
+    df = pd.read_csv("mlb_history_db_cleaned.csv")
+
+    with sqlite3.connect( "../mlb_history.db") as conn:
+              cursor = conn.cursor()
+
+    cursor.execute("""
+        CREATE TABLE mlb_history_db( 
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            year INTEGER,
+            league TEXT,
+            player TEXT,
+            team TEXT,
+            avg REAL
+        )
+    """ )
+
+    for _,row in df.iterrows():
+               cursor.execute("""
+                    INSERT INTO mbl_history__avg_db (year, league, player, team, db)
+                    VALUES (?,?,?,?)
+                """, (row["Year"], row["League"], row["Player"], row["Team"], row["DB"]))
+                                    
+    conn.commit() 
+            
+    print("Loaded data into mbl_history_db")
+
+except (sqlite3.Error, pd.errors.EmptyDataError, FileNotFoundError)as e:
+    print(f"Error ocurred: {e}")
+
+    cursor.execute("SELECT name FROM sqlite_master WHERE type='table';")
+    print(cursor.fetchall())  
+
+    with sqlite3.connect( "../mlb_history.db") as conn:
+
+
+        driver.get("https://www.baseball-almanac.com/players/player.php?p=rodrial01")
 
 title = driver.title
 
@@ -71,23 +106,17 @@ for year, url in year_url_pairs:
     except Exception as e:
         print(f"Failed for {year}: {e}")
 
-# Import to SQLite
+
+
+print(os.listdir("season_csvs"))
 conn = sqlite3.connect("../mlb_history.db")
-
-for file in os.listdir("season_csvs"):
-    if file.endswith(".csv"):
-        table_name = file.replace(".csv", "").replace("-", "_").replace(" ", "_")
-        df = pd.read_csv(os.path.join("season_csvs", file))
-        try:
-            df.to_sql(table_name, conn, if_exists="replace", index=False)
-            print(f"Imported to DB: {table_name}")
-        except Exception as e:
-            print(f"DB import failed for {table_name}: {e}")
-
+try:
+    df = pd.read_csv("season_csvs/season_2023_table0.csv")  
+    df.to_sql("mlb_history", conn, if_exists="replace", index=False)
+    print("Successfully imported to 'mlb_history' table.")
+except Exception as e:
+    print(f"Error importing to mlb_history: {e}")
 conn.close()
-print("All CSVs imported into mlb_history.db.")
-
-
 
 DATA_DIR = '../mlb_history.db'  # Folder where CSVs are stored
 DB_FILE = 'imported_data.db'  # SQLite DB file
@@ -98,6 +127,4 @@ engine = create_engine(f'sqlite:///{DB_FILE}')
 def import_csv_to_db(csv_file):
     table_name = os.path.splitext(os.path.basename(csv_file))[0]
 
-    df = pd.read_csv(csv_file)
-import_csv_to_db(os.path.join("csv_directory, csv_file"))
 

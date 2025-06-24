@@ -24,8 +24,8 @@ def load_table(table_name):
     conn.close()
     return df
 
-# UI
-st.title("⚾ MLB History Dashboard (1876–2025)")
+# 
+st.title(" MLB History Dashboard (1876–2025)")
 st.markdown("Data from [Baseball Almanac](https://www.baseball-almanac.com/yearmenu.shtml)")
 
 # Sidebar
@@ -33,7 +33,7 @@ tables = get_table_names()
 years = sorted({t.split("_")[1] for t in tables})
 selected_year = st.sidebar.selectbox("Select Year", years)
 
-# all tables for that year
+
 year_tables = [t for t in tables if selected_year in t]
 
 selected_table = st.sidebar.selectbox("Select Table", year_tables)
@@ -41,10 +41,10 @@ selected_table = st.sidebar.selectbox("Select Table", year_tables)
 df = load_table(selected_table)
 
 # Show DataFrame
-st.subheader(f"📊 Table: {selected_table}")
+st.subheader(f" Table: {selected_table}")
 st.dataframe(df)
 
-# Optional filters
+
 if "Player" in df.columns:
     player = st.text_input("Filter by Player Name")
     if player:
@@ -57,7 +57,7 @@ if "Team" in df.columns:
 
 # Plotting
 if "HR" in df.columns and "Player" in df.columns:
-    st.subheader("🏆 Home Run Leaders")
+    st.subheader(" Home Run Leaders")
     hr_df = df[["Player", "HR"]].dropna()
     hr_df["HR"] = pd.to_numeric(hr_df["HR"], errors="coerce")
     top_hr = hr_df.sort_values(by="HR", ascending=False).head(10)
