@@ -1,10 +1,11 @@
 import sqlite3
 import os
 import pandas as pd
+# get homeruns data
 
 title = driver.title ("Alex_Rodriguez_Homeruns")
 
-df = pd.read_csv("homerun_avg_cleaned.csv") 
+df = pd.read_csv("homerun_cleaned.csv") 
 
 conn = sqlite3.connect("mlb_history.db")
 

@@ -56,6 +56,7 @@ if "Team" in df.columns:
         df = df[df["Team"] == team]
 
 # Plotting
+
 if "HR" in df.columns and "Player" in df.columns:
     st.subheader(" Home Run Leaders")
     hr_df = df[["Player", "HR"]].dropna()

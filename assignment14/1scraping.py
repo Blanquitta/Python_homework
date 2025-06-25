@@ -27,7 +27,7 @@ wait = WebDriverWait(driver, 8)
 table = wait.until(EC.Presence_of_element_located((By.TAG_NAME, "table")))
 
 driver.get
-import requests
+
 import sqlite3
 import pandas as pd
 
@@ -36,10 +36,10 @@ with sqlite3.connect( "mlb_yearly_index.avg") as conn:
         conn.execute("PRAGMA foreign_keys = 1")
          
         try:
-            df = pd.read_csv("mlb_yearly_index__avg_cleaned.csv")
+            df = pd.read_csv("mlb_yearly_index_cleaned.csv")
               
 
-        cursor.execute("DROP TABLE IF EXISTS mbl_yearly_index")
+            cursor.execute("DROP TABLE IF EXISTS mbl_yearly_index")
 
         cursor.execute("""
             CREATE TABLE mlb_yearly_index( 
@@ -53,12 +53,12 @@ with sqlite3.connect( "mlb_yearly_index.avg") as conn:
  )
 """ )
         for _,row in df.iterrows():
-               cursor.execute("""
+            cursor.execute("""
                     INSERT INTO mbl_year_index (year, league, player, team, avg)
-                    VALUES (?,?,?,?)
+                    VALUES (?,?,?,?,?)
                 """, (row["Year"], row["League"], row["Player"], row["Team"], row["DB"]))
                                     
-        conn.commit() 
+            conn.commit() 
         
         print("Loaded data into mbl_yearly_index_avg.db")
         except (sqlite3.Error, pd.errors.EmptyDataError FileNotFoundError)as e:

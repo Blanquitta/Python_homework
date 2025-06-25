@@ -24,6 +24,8 @@ import sqlite3
 
 csv_file =( "../mlb_history.db")
 
+#where we the infomtioSSn from
+
 with sqlite3.connect( "../mlb_history.db") as conn:
  
 
@@ -52,7 +54,7 @@ try:
     for _,row in df.iterrows():
                cursor.execute("""
                     INSERT INTO mbl_history__avg_db (year, league, player, team, db)
-                    VALUES (?,?,?,?)
+                    VALUES (?,?,?,?,?)
                 """, (row["Year"], row["League"], row["Player"], row["Team"], row["DB"]))
                                     
     conn.commit() 
@@ -78,7 +80,7 @@ BASE_URL = "https://www.baseball-almanac.com/"
 YEAR_INDEX_URL = BASE_URL + "yearmenu.shtml"
 HEADERS = {"User-Agent": "Mozilla/5.0"}
 
-# Create folders
+# create folders
 os.makedirs("season_csvs", exist_ok=True)
 
 #  all year URLs
@@ -119,12 +121,10 @@ except Exception as e:
 conn.close()
 
 DATA_DIR = '../mlb_history.db'  # Folder where CSVs are stored
-DB_FILE = 'imported_data.db'  # SQLite DB file
+
 
 engine = create_engine(f'sqlite:///{DB_FILE}')
 
-
-def import_csv_to_db(csv_file):
-    table_name = os.path.splitext(os.path.basename(csv_file))[0]
+table_name = os.path.splitext(os.path.basename(csv_file))[0]
 
 
