@@ -1,24 +1,21 @@
 import sqlite3
 import os
 import pandas as pd
+# get homeruns data
 
-df = pd.read_csv("homerun_avg_cleaned.csv") 
+title = driver.title ("Alex_Rodriguez_Homeruns")
 
+df = pd.read_csv("homerun_cleaned.csv") 
+
+conn = sqlite3.connect("mlb_history.db")
 
 with sqlite3.connect( "mlb_history.db") as conn:
  cursor = conn.cursor()
  import sqlite3 
 
-# Connect to the database
-conn.execute("PRAGMA foreign_keys = 1") # foreign key constraint
 cursor = conn.cursor()
 
-cursor.execute("DROP TABLE IF EXISTS homerun_avg_leaders")
-
-
 DB_PATH = "mlb_history.db"
-
-
 
 def list_tables(conn):
     cursor = conn.execute("SELECT name FROM sqlite_master WHERE type='table';")
@@ -32,37 +29,46 @@ def run_join_query(conn):
 years = ",".join(str(y) for y in range(1995, 2012))
 print(years)  
 
-cursor.execute(""""
-    CREATE TABLE PLAYER homerun _avg_leaders ( 
-        id INTEGER PRiMARY KEY AUTOINCREMENT,
-        year INTEGER,
-        league TEXT,
-        player Text,
-        team TEXT,
-        avg REAL
- )
-""" )
+
+DB_PATH = "../mlb_history.db"
+
+query = "SELECT name FROM sqlite_master WHERE type='table';"
+tables = pd.read_sql(query. conn)
+table_names = tables['name'].tolist()
+
+try:
+    df = ()
+    st.mlb_history.db(df)
+except Exception as e:
+    st.error(f"Failed to load table: {e}")
+    st.stop()
+
+available_tables = ["batting_leaders", "team_stats", "standings"]
+selected_year = 1996
+tables_for_year = ["team_stats", "batting_leaders"]
+selected_tables = ["batting_leaders", "standings"]
+
+
+st.write("Available tables:", "tables")
+st.write("Selected year:", selected_year)
+st.write("Tables for year:", year_tables)
+st.write("Selected table:", selected_table)
 
 
 
-year = input("Enter year to query (e.g., 1995,2012): ")
-table_options = [t for t in list_tables(conn) if year in t]
-if len(table_options) < 2:
-    print(f"Not enough tables found for year {year}.")
-    
-
+  
 print("\nAvailable tables for year", year)
 for idx, tname in enumerate(table_options):
         print(f"[{idx}] {tname}")
 
-try:
+    # try:
         t1_idx = int(input("Choose main table index (e.g., 0): "))
         t2_idx = int(input("Choose table to join with (e.g., 1): "))
         t1 = table_options[t1_idx]
         t2 = table_options[t2_idx]
         join_col = input("Enter column name to join on (e.g., 'Player' or 'Team'): ")
 
-        query = f"""
+query = f"""
         SELECT *
         FROM "{t1}" AS A
         JOIN "{t2}" AS B
@@ -70,15 +76,15 @@ try:
         LIMIT 20;
         """
 
-        df = pd.read_sql_query(query, conn)
-        print("\nJOIN RESULT (first 20 rows):")
-        print(df.to_string(index=False))
+df = pd.read_sql_query(query, conn)
+print("\nJOIN RESULT (first 20 rows):")
+print(df.to_string(index=False))
 
-except Exception as e:
-        print("Error:", e)
+    except Exception as e:
+    print("Error:", e)
 
-def custom_sql(conn):
-    print("\nEnter custom SQL (end with semicolon `;`):")
+    def custom_sql(conn):
+     print("\nEnter custom SQL (end with semicolon `;`):")
     sql = ""
     while not sql.strip().endswith(";"):
         sql += input("SQL> ") + "\n"
@@ -89,10 +95,10 @@ def custom_sql(conn):
     except Exception as e:
         print("Query error:", e)
 
-def main():
-    if not os.path.exists(DB_PATH):
-        print(f"Database not found at {DB_PATH}. Run the import script first.")
-        return
+    def main():
+        if not os.path.exists(DB_PATH):
+            print(f"Database not found at {DB_PATH}. Run the import script first.")
+            return
 
     conn = sqlite3.connect(DB_PATH)
     print("Connected to MLB History Database.")
